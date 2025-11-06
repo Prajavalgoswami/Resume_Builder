@@ -138,17 +138,3 @@ Or, if you have a `zip` tool available:
 zip -r ResumeBuilder.zip ResumeBuilder/
 ```
 
-6) Quick checklist before submitting
-
-- Ensure `.env` files with real credentials are NOT committed to the repo.
-- Make sure `backend/.env.example` and `frontend/.env.example` exist and list all required variables.
-- Include the `db-backup/` folder if you provide a mongodump, or include a `backend/seed.js` and document how to run it.
-- Test the unzip and run process on another machine or a clean directory.
-
-If you want, I can now:
-
-- Add a `backend/seed.js` script to this repo that populates sample data (I will create it and explain how to run it), or
-- Add an npm script `seed` to `backend/package.json` that runs `node seed.js`, or
-- Recreate `.env.example` files if they've been removed.
-
-Tell me which of those you'd like and I'll implement it next.
