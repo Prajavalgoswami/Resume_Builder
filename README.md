@@ -1,4 +1,4 @@
-# ResumeBuilder — MERN Project Submission
+# ResumeBuilder — MERN Project
 
 This repository contains the frontend (React + Vite) and backend (Node + Express + MongoDB) parts of the ResumeBuilder project and is prepared for submission.
 
