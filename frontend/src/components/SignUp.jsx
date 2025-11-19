@@ -60,51 +60,58 @@ const SignUp = ({setCurrentPage}) => {
   }
 
   return (
-   <div className={styles.signupContainer}>
-    <div className={styles.headerWrapper}>
-        <h3 className={styles.signupTitle}>Create Account</h3>
-        <p className={styles.signupSubtitle}>Join us to build your resume</p>
-    </div>
+    <div className={styles.signupContainer}>
+      {/* Header */}
+      <h3 className={styles.signupTitle}>Create Account</h3>
+      <p className={styles.signupSubtitle}>Join us to build your resume</p>
 
-    {/* form */}
-
-    <form onSubmit={handleSignUp} className={styles.signupForm}>
-        <Input value={fullName} onChange={({target}) => setFullName(target.value)} 
-        placeholder="Full Name"
-        label="Full Name"
-        type="text"
+      {/* Form */}
+      <form onSubmit={handleSignUp} className={styles.signupForm}>
+        <Input
+          value={fullName}
+          onChange={({ target }) => setFullName(target.value)}
+          placeholder="Full Name"
+          label="Full Name"
+          type="text"
         />
-
-        <Input value={email} onChange={({target}) => setEmail(target.value)} 
-        placeholder="Email"
-        label="Email"
-        type="email"
+        <Input
+          value={email}
+          onChange={({ target }) => setEmail(target.value)}
+          placeholder="Email"
+          label="Email"
+          type="email"
         />
-
-        <Input value={password} onChange={({target}) => setPassword(target.value)} 
-        placeholder="min 8 characters"
-        label="Password"
-        type="password"
+        <Input
+          value={password}
+          onChange={({ target }) => setPassword(target.value)}
+          placeholder="min 8 characters"
+          label="Password"
+          type="password"
         />
         {error && <div className={styles.errorMessage}>{error}</div>}
-
         <button type="submit" className={styles.signupSubmit}>
-            Sign Up
-            </button>
-
-            {/* footer */}
-            <p className={styles.switchText}>
-                Already have an account? <button onClick={() => {
-                  if (typeof setCurrentPage === 'function') {
-                    setCurrentPage('Login');
-                  } else {
-                    navigate('/login');
-                  }
-                }} type="button" className={styles.signupSwitchButton}>Sign In</button>
-            </p>
-    </form>
-   </div>
-  )
+          Sign Up
+        </button>
+        {/* Footer */}
+        <p className={styles.switchText}>
+          Already have an account?{' '}
+          <button
+            onClick={() => {
+              if (typeof setCurrentPage === 'function') {
+                setCurrentPage('Login');
+              } else {
+                navigate('/login');
+              }
+            }}
+            type="button"
+            className={styles.signupSwitchButton}
+          >
+            Sign In
+          </button>
+        </p>
+      </form>
+    </div>
+  );
 }
 
 export default SignUp

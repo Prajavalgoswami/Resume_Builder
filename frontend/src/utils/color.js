@@ -6,34 +6,24 @@ export const fixTailwindColors = (element) => {
     clone.style.width = `${element.offsetWidth}px`;
     document.body.appendChild(clone);
   
-    // Convert oklch colors to rgb
+    // Remove oklch colors, fallback to #222
     const convertOklch = (value) => {
       const oklchRegex = /oklch\(([^)]+)\)/g;
-      return value.replace(oklchRegex, (match) => {
-        // For production, replace with actual oklch to rgb conversion logic
-        // This is a placeholder - in a real app you'd use a color conversion library
-        return match.replace('oklch', 'rgb');
-      });
+      return value.replace(oklchRegex, () => '#222');
     };
   
     // Process all elements
     const allElements = clone.querySelectorAll('*');
     allElements.forEach(el => {
       const computed = window.getComputedStyle(el);
-  
-      // Handle background colors
       if (computed.backgroundColor.includes('oklch')) {
-        el.style.backgroundColor = convertOklch(computed.backgroundColor);
+        el.style.backgroundColor = '#222';
       }
-  
-      // Handle text colors
       if (computed.color.includes('oklch')) {
-        el.style.color = convertOklch(computed.color);
+        el.style.color = '#222';
       }
-  
-      // Handle border colors
       if (computed.borderColor.includes('oklch')) {
-        el.style.borderColor = convertOklch(computed.borderColor);
+        el.style.borderColor = '#222';
       }
     });
   

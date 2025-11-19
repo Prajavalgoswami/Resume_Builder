@@ -21,3 +21,6 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ storage, fileFilter });
 
 export default upload;
+
+//Configures storage so uploaded files are saved in the uploads/ directory 
+// with a unique filename.

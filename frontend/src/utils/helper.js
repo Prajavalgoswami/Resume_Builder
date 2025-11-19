@@ -25,8 +25,8 @@ export function inlineAllComputedStyles(rootElement) {
       const prop = cs[i];
       const val  = cs.getPropertyValue(prop);
 
-      // ✂️ Skip any unsupported OKLCH color functions
-      if (val.includes("oklch(")) continue;
+      // ✂️ Replace any unsupported OKLCH color functions
+      if (val.includes("oklch(")) { cssText += `${prop}:#222;`; continue; }
 
       cssText += `${prop}:${val};`;
     }
@@ -115,7 +115,7 @@ export const fixTailwindColors = (rootElement) => {
       ;["color", "backgroundColor", "borderColor"].forEach((prop) => {
         const val = style[prop] || ""
         if (val.includes("oklch")) {
-          el.style[prop] = "#000"
+          el.style[prop] = "#222"
         }
       })
 
@@ -123,11 +123,11 @@ export const fixTailwindColors = (rootElement) => {
     if (el instanceof SVGElement) {
       const fill = el.getAttribute("fill")
       if (fill && fill.includes("oklch")) {
-        el.setAttribute("fill", "#000")
+        el.setAttribute("fill", "#222")
       }
       const stroke = el.getAttribute("stroke")
       if (stroke && stroke.includes("oklch")) {
-        el.setAttribute("stroke", "#000")
+        el.setAttribute("stroke", "#222")
       }
     }
   })

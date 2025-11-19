@@ -62,3 +62,6 @@ export const uploadResumeImages = async (req, res) => {
     res.status(500).json({ message: 'Error uploading images', error: error.message });
   }
 };
+
+//Handles the server-side logic for receiving, processing, and saving uploaded images. 
+// It manages file storage, updates resume records, and responds with image URLs.

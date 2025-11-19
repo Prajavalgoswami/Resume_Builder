@@ -54,6 +54,8 @@ const TemplateTwo = ({ resumeData = {}, containerWidth }) => {
             <a
               href={`mailto:${contactInfo.email}`}
               className="hover:underline text-blue-600"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               {contactInfo.email}
             </a>
@@ -62,17 +64,19 @@ const TemplateTwo = ({ resumeData = {}, containerWidth }) => {
             <a
               href={contactInfo.linkedin}
               className="hover:underline text-blue-600"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               LinkedIn
             </a>
           )}
           {contactInfo.github && (
-            <a href={contactInfo.github} className="hover:underline text-blue-600">
+            <a href={contactInfo.github} className="hover:underline text-blue-600" target="_blank" rel="noopener noreferrer">
               GitHub
             </a>
           )}
           {contactInfo.website && (
-            <a href={contactInfo.website} className="hover:underline text-blue-600">
+            <a href={contactInfo.website} className="hover:underline text-blue-600" target="_blank" rel="noopener noreferrer">
               Portfolio
             </a>
           )}
@@ -132,7 +136,7 @@ const TemplateTwo = ({ resumeData = {}, containerWidth }) => {
                 <div key={idx} className="space-y-1">
                   <h3 className="font-semibold text-[12px] text-gray-800">{proj.title}</h3>
                   {proj.link && (
-                    <a href={proj.link} className="text-blue-600 text-[11px] hover:underline">
+                    <a href={proj.link} className="text-blue-600 text-[11px] hover:underline" target="_blank" rel="noopener noreferrer">
                       {proj.linkType || "Link"}
                     </a>
                   )}
@@ -144,12 +148,12 @@ const TemplateTwo = ({ resumeData = {}, containerWidth }) => {
                   <p className="text-[11px] text-gray-700">{proj.description}</p>
                   <div className="flex gap-1 mt-0.5 pt-1 text-[11px]">
                     {proj.github && (
-                      <a href={proj.github} className="hover:underline text-blue-600">
+                      <a href={proj.github} className="hover:underline text-blue-600" target="_blank" rel="noopener noreferrer">
                         GitHub
                       </a>
                     )}
                     {proj.liveDemo && (
-                      <a href={proj.liveDemo} className="hover:underline text-blue-600">
+                      <a href={proj.liveDemo} className="hover:underline text-blue-600" target="_blank" rel="noopener noreferrer">
                         Demo
                       </a>
                     )}

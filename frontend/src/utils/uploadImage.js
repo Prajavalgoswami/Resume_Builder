@@ -21,3 +21,6 @@ const uploadImage = async (imageFile) => {
 export default uploadImage;
 
 //help in uploading the images as resume and help in download also
+//Handles the client-side logic for uploading images to the backend.
+//  It likely prepares the image data (e.g., with FormData),
+//  sends the upload request to your backend API, and processes the response.

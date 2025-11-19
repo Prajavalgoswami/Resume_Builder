@@ -452,7 +452,7 @@ const LandingPage = () => {
               ))}
             </div>
           </div>
-          L
+        
         </section>
 
         {/*CTA Section*/}
@@ -499,6 +499,7 @@ const LandingPage = () => {
       </footer>
 
       {/* model for login and SignUp */}
+      {/* openAuthModal is a state variable (likely a boolean) in your React component that controls whether the authentication modal (login/signup popup) is visible. */}
       <Modal
         isOpen={openAuthModal}
         onClose={() => {

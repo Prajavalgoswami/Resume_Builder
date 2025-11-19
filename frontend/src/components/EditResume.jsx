@@ -13,6 +13,8 @@ import { Chrome } from "lucide-react";
 import Resume1 from "../assets/Resume1.png";
 import Resume2 from "../assets/Resume2.png";
 import Resume3 from "../assets/Resume3.png";
+ import domtoimage from "dom-to-image";
+import { jsPDF } from "jspdf";
 
 
 import html2pdf from 'html2pdf.js'
@@ -120,8 +122,8 @@ const EditResume = () => {
     ],
     education: [
       {
-        degree: "",
-        institution: "",
+        degree: "BTech in Computer Science",
+        institution: "XYZ University",
         startDate: "",
         endDate: "",
       },
@@ -290,18 +292,13 @@ const validateAndNext = (e) => {
 
     case "certifications":
       resumeData.certifications.forEach(({ title, issuer }, index) => {
-        if (!title.trim()) errors.push(`Certification Title is required in certification ${index + 1}`)
-        if (!issuer.trim()) errors.push(`Issuer is required in certification ${index + 1}`)
+        if (!title || !title.trim()) errors.push(`Certification Title is required in certification ${index + 1}`)
+        if (!issuer || !issuer.trim()) errors.push(`Issuer is required in certification ${index + 1}`)
       })
       break
 
     case "additionalInfo":
-      if (resumeData.languages.length === 0 || !resumeData.languages[0].name?.trim()) {
-        errors.push("At least one language is required")
-      }
-      if (resumeData.interests.length === 0 || !resumeData.interests[0]?.trim()) {
-        errors.push("At least one interest is required")
-      }
+      // No required validation for languages or interests
       break
 
     default:
@@ -651,6 +648,7 @@ const renderForm = () => {
       setIsLoading(true)
       await axiosInstance.delete(API_PATHS.RESUME.DELETE(resumeId))
       toast.success("Resume deleted successfully")
+      setOpenDeleteModal && setOpenDeleteModal(false); // Close modal if state exists
       navigate("/dashboard")
     } catch (error) {
       console.error("Error deleting resume:", error)
@@ -682,91 +680,50 @@ const updateResumeDetails = async (thumbnailLink) => {
   }
 
    //download function
-    const downloadPDF = async () => {
-    const element = resumeDownloadRef.current;
-    if (!element) {
-      toast.error("Failed to generate PDF. Please try again.");
-      return;
-    }
   
-    setIsDownloading(true);
-    setDownloadSuccess(false);
-    const toastId = toast.loading("Generating PDFâ€¦");
-  
-    const override = document.createElement("style");
-    override.id = "__pdf_color_override__";
-    override.textContent = `
-      * {
-        color: #000 !important;
-        background-color: #fff !important;
-        border-color: #000 !important;
-      }
-    `;
-    document.head.appendChild(override);
-  
-    // type of how it will look when downloaded
-    try {
-      // Clone the element and remove any transform/scale so html2canvas captures natural layout
-      const clone = element.cloneNode(true);
-      clone.id = "__pdf_clone__";
-      // reset transform/scale that may be applied for on-screen preview
-      clone.style.transform = "none";
-      clone.style.transformOrigin = "top left";
-      // ensure clone has the correct width to render pages properly
-      clone.style.width = `${element.scrollWidth}px`;
-      clone.style.boxSizing = "border-box";
-  // position on-screen but non-interactive so html2canvas can render it reliably
-  clone.style.position = "fixed";
-  clone.style.left = "0px";
-  clone.style.top = "0px";
-  clone.style.zIndex = "9999";
-  clone.style.pointerEvents = "none";
-  // ensure it's visible to the renderer (avoid display:none or opacity:0)
-  clone.style.opacity = "1";
-      document.body.appendChild(clone);
 
-      await html2pdf()
-        .set({
-          margin:       0,
-          filename:     `${resumeData.title.replace(/[^a-z0-9]/gi, "_")}.pdf`,
-          image:        { type: "png", quality: 1.0 },
-          html2canvas:  {
-            scale:           2,
-            useCORS:         true,
-            backgroundColor: "#FFFFFF",
-            logging:         false,
-            windowWidth:     clone.scrollWidth,
-          },
-          jsPDF:        {
-            unit:       "mm",
-            format:     "a4",
-            orientation:"portrait",
-          },
-          pagebreak: {
-            mode: ['css', 'legacy']
-          }
-        })
-        .from(clone)
-        .save(); //save resume here then we download it
+const downloadPDF = async () => {
+  const element = resumeDownloadRef.current;
 
-      toast.success("PDF downloaded successfully!", { id: toastId });
-      setDownloadSuccess(true);
-      setTimeout(() => setDownloadSuccess(false), 3000);
+  if (!element) {
+    toast.error("Something went wrong!");
+    return;
+  }
 
-      // remove the clone after saving
-      document.getElementById("__pdf_clone__")?.remove();
+  setIsDownloading(true);
+  const toastId = toast.loading("Generating PDF...");
 
-    } catch (err) {
-      console.error("PDF error:", err);
-      toast.error(`Failed to generate PDF: ${err.message}`, { id: toastId });
+  try {
+    const scale = 2; // High-resolution export
 
-    } finally {
-      document.getElementById("__pdf_color_override__")?.remove();
-      // ensure clone removed in case of error
-      document.getElementById("__pdf_clone__")?.remove();
-      setIsDownloading(false);
-    }
-  };
+    const dataUrl = await domtoimage.toPng(element, {
+      quality: 1,
+      bgcolor: "#ffffff",
+      width: element.offsetWidth * scale,
+      height: element.offsetHeight * scale,
+      style: {
+        transform: `scale(${scale})`,
+        transformOrigin: "top left",
+      },
+    });
+
+    const pdf = new jsPDF("p", "mm", "a4");
+    const imgProps = pdf.getImageProperties(dataUrl);
+
+    const pdfWidth = 210;
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+    pdf.addImage(dataUrl, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save(`${resumeData.title || "resume"}.pdf`);
+
+    toast.success("PDF downloaded!", { id: toastId });
+  } catch (err) {
+    console.error("PDF generation error:", err);
+    toast.error("Failed to download PDF", { id: toastId });
+  } finally {
+    setIsDownloading(false);
+  }
+};
 
   //theme selector function
   const updateTheme = (theme) => {

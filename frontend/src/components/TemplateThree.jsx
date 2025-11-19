@@ -89,7 +89,7 @@ const TemplateThree = ({ resumeData = {}, containerWidth }) => {
               {contactInfo.email && (
                 <li className="flex items-start">
                   <span className="font-semibold min-w-[65px]">Email:</span>
-                  <a href={`mailto:${contactInfo.email}`} className="text-blue-600 hover:underline">
+                  <a href={`mailto:${contactInfo.email}`} className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
                     {contactInfo.email}
                   </a>
                 </li>
@@ -101,6 +101,8 @@ const TemplateThree = ({ resumeData = {}, containerWidth }) => {
                     href={contactInfo.linkedin}
                     className="text-blue-600 hover:underline truncate pb-1"
                     title={contactInfo.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     linkedin.com/in/{contactInfo.linkedin.split("/").pop()}
                   </a>
@@ -113,6 +115,8 @@ const TemplateThree = ({ resumeData = {}, containerWidth }) => {
                     href={contactInfo.github}
                     className="text-blue-600 hover:underline pb-2 truncate"
                     title={contactInfo.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     github.com/{contactInfo.github.split("/").pop()}
                   </a>
@@ -125,6 +129,8 @@ const TemplateThree = ({ resumeData = {}, containerWidth }) => {
                     href={contactInfo.website}
                     className="text-blue-600 hover:underline pb-2 truncate"
                     title={contactInfo.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     {contactInfo.website.replace(/(^\w+:|^)\/\//, "")}
                   </a>
@@ -240,8 +246,8 @@ const TemplateThree = ({ resumeData = {}, containerWidth }) => {
                     )}
                     <p className="mt-1 mb-1">{proj.description}</p>
                     <div className="flex flex-wrap gap-2 mt-1">
-                      {proj.github && <a href={proj.github} className="text-blue-600 hover:underline text-xs">GitHub</a>}
-                      {proj.liveDemo && <a href={proj.liveDemo} className="text-blue-600 hover:underline text-xs">Live Demo</a>}
+                      {proj.github && <a href={proj.github} className="text-blue-600 hover:underline text-xs" target="_blank" rel="noopener noreferrer">GitHub</a>}
+                      {proj.liveDemo && <a href={proj.liveDemo} className="text-blue-600 hover:underline text-xs" target="_blank" rel="noopener noreferrer">Live Demo</a>}
                       {proj.technologies && (
                         <span className="text-gray-600 text-xs">
                           <strong>Tech:</strong> {proj.technologies.join(", ")}

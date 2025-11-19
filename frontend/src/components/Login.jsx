@@ -57,45 +57,47 @@ const Login = ({ setCurrentPage }) => {
 
   return (
     <div className={styles.Container}>
-      <div className={styles.headerWrapper}>
-        <h3 className={styles.loginTitle}>Welcome Back</h3>
-        <p className={styles.switchText}>
-          Don't have an account?
-          <button
-            type="button"
-            className={styles.signupSwitchButton}
-            onClick={() => {
-              if (typeof setCurrentPage === "function") {
-                setCurrentPage("SignUp");
-              } else {
-                navigate("/signup");
-              }
-            }}
-          >
-            Sign Up
-          </button>
-        </p>
+      {/* Header */}
+      <h3 className={styles.loginTitle}>Welcome Back</h3>
+      <p className={styles.switchText}>
+        Don't have an account?
+        <button
+          type="button"
+          className={styles.signupSwitchButton}
+          onClick={() => {
+            if (typeof setCurrentPage === "function") {
+              setCurrentPage("SignUp");
+            } else {
+              navigate("/signup");
+            }
+          }}
+        >
+          Sign Up
+        </button>
+      </p>
+      <p className={styles.loginSubtitle}>Sign in to continue</p>
 
-        <p className={styles.loginSubtitle}>Sign in to continue</p>
-      </div>
-
+      {/* Error */}
       {error && <p className={styles.error}>{error}</p>}
 
+      {/* Form */}
       <form className={styles.form} onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Email"
+        <Input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className={styles.input}
+          placeholder="Email"
+          label="Email"
+          type="email"
         />
-        <input
-          type="password"
-          placeholder="Password"
+
+        <Input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className={styles.input}
+          placeholder="Password"
+          label="Password"
+          type="password"
         />
+
         <button type="submit" className={styles.loginButton}>
           Login
         </button>

@@ -67,6 +67,8 @@ const TemplateOne = ({ resumeData = {}, colorPalette, containerWidth }) => {
                 <a
                   href={`mailto:${contactInfo.email}`}
                   className="hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {contactInfo.email}
                 </a>
@@ -77,6 +79,8 @@ const TemplateOne = ({ resumeData = {}, colorPalette, containerWidth }) => {
                 <a
                   href={`tel:${contactInfo.phone}`}
                   className="hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {contactInfo.phone}
                 </a>

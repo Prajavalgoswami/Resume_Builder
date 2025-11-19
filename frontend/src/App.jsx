@@ -14,6 +14,8 @@ import SignUpPage from './pages/SignUpPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import CreateResumeForm from './components/CreateResumeform.jsx';
 
+import PrivateRoute from './components/PrivateRoute.jsx';
+
 
 
 
@@ -28,9 +30,9 @@ const App = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/resume/create" element={<CreateResumeForm />} />
-        <Route path="/resume/:resumeId" element={<EditResume />} />
+          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/resume/create" element={<PrivateRoute><CreateResumeForm /></PrivateRoute>} />
+          <Route path="/resume/:resumeId" element={<PrivateRoute><EditResume /></PrivateRoute>} />
       </Routes>
       <Toaster toastOptions={{
         className :"",

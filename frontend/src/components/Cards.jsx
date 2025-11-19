@@ -12,14 +12,14 @@ export const ProfileInfoCard = () => {
   const { user, clearUser } = useContext(UserContext);
 
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem("token");
     clearUser();
-    navigate("/");
+    navigate("/login");
   };
 
   return (
     user && (
-      <div className={`${cardStyles.profileCard} flex items-center gap-3`}>
+      <div className={`${cardStyles.profileCard} flex items-center gap-3 ml-[-30px]`}>
         {/* Avatar */}
         <div className={cardStyles.profileInitialsContainer}>
           <span className={cardStyles.profileInitialsText}>

@@ -16,7 +16,7 @@ import {LucideTrash} from 'lucide-react';
 
 const Dashboard = () => {
   const navigate = useNavigate();
- const [openCreateModal, setOpenCreateModal]=useState(false)
+ const [openCreateModal, setOpenCreateModal]=useState(false)   //for create resumes
  const [allResumes, setAllResumes] = useState([])
 const [loading, setLoading] = useState(true)
 const[resumeToDelete , setResumeToDelete] = useState(null);

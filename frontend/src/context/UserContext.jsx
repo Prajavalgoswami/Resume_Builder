@@ -55,3 +55,6 @@ const [user, setUser] = useState(null);
 };
 
 export default UserProvider;
+
+//This file exports a context and a provider component.
+//Wrap your app with the Provider
